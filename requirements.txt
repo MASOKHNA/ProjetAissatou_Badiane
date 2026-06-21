@@ -1,0 +1,16 @@
+# Core scientifique — installables via pip sans compilation C/C++
+numpy>=1.24.0
+pandas>=2.0.0
+matplotlib>=3.7.0
+seaborn>=0.12.0
+scikit-learn>=1.3.0
+xgboost>=1.7.0
+lightgbm>=4.0.0
+folium>=0.14.0
+tensorflow>=2.13.0
+jupyter>=1.0.0
+notebook>=7.0.0
+ipykernel>=6.0.0
+
+# Packages geospatiaux — mieux installés via conda (voir environment.yml)
+# rasterio, geopandas, shapely => conda install -c conda-forge rasterio geopandas

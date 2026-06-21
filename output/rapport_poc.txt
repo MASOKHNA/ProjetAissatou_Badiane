@@ -1,0 +1,93 @@
+======================================================================
+POC TECHNIQUE : ADAPTATION AHP AVEC INTELLIGENCE ARTIFICIELLE
+CARTOGRAPHIE SUSCEPTIBILITE INONDATION - PIKINE & KEUR MASSAR
+======================================================================
+
+1. RESUME EXECUTIF
+----------------------------------------------------------------------
+Adaptation de la methodologie AHP classique (Sy et al., 2025) par
+integration de Machine Learning et Deep Learning (LSTM) pour ameliorer
+la cartographie des zones inondables de Pikine et Keur Massar.
+
+2. DONNEES
+----------------------------------------------------------------------
+  Dataset synthetique Pikine : 5000 pixels x 24 colonnes
+  Taux inondation observe   : 57.4%
+  Facteurs AHP : altitude, pente, pluie, drainage, sol, usage
+  Distributions spatiales calibrees sur planches cartographiques reelles
+
+3. POIDS AHP (Saaty)
+----------------------------------------------------------------------
+  pluie        : 30.74%
+  altitude     : 20.10%
+  drainage     : 19.98%
+  pente        : 13.30%
+  sol          : 10.59%
+  usage        :  5.28%
+
+  Consistency Ratio : 0.0019  [ACCEPTABLE]
+
+4. POIDS ML (moyenne RF + XGBoost + LightGBM)
+----------------------------------------------------------------------
+  altitude     : 26.99%
+  pluie        : 18.48%
+  drainage     : 17.19%
+  pente        : 13.60%
+  sol          : 12.86%
+  usage        : 10.88%
+
+5. COMPARAISON AHP vs ML
+----------------------------------------------------------------------
+ Critere  AHP Expert (%)  ML Data (%)  Ecart (%)
+   pluie           30.74        18.48     -12.27
+altitude           20.10        26.99       6.89
+   usage            5.28        10.88       5.59
+drainage           19.98        17.19      -2.79
+     sol           10.59        12.86       2.28
+   pente           13.30        13.60       0.30
+
+6. POIDS FINAUX HYBRIDES (70% Expert + 30% Data)
+----------------------------------------------------------------------
+  pluie        : 27.06%
+  altitude     : 22.17%
+  drainage     : 19.15%
+  pente        : 13.39%
+  sol          : 11.27%
+  usage        :  6.96%
+
+7. VALIDATION CARTES
+----------------------------------------------------------------------
+  AHP Classique          | AUC=0.916 | F1=0.825 | Prec=0.886 | Rec=0.772
+  Hybrid AHP+ML          | AUC=0.934 | F1=0.843 | Prec=0.906 | Rec=0.789
+  ML Pur (Ensemble)      | AUC=0.987 | F1=0.915 | Prec=0.983 | Rec=0.856
+
+  Amelioration AHP -> Hybrid : +1.8% AUC
+
+8. PERFORMANCES ML
+----------------------------------------------------------------------
+       Modele  AUC-ROC  F1-Score  Precision   Recall
+Random Forest 0.948553  0.885524   0.925316 0.849013
+      XGBoost 0.945809  0.890330   0.904192 0.876887
+     LightGBM 0.945950  0.885071   0.903265 0.867596
+     Ensemble 0.949346  0.882701   0.900846 0.865273
+
+  Meilleur modele : Ensemble (AUC=0.949)
+
+9. LSTM TEMPOREL
+----------------------------------------------------------------------
+  AUC-ROC : 0.879
+  F1-Score : 0.486
+  Architecture : LSTM(64) -> LSTM(32) -> Dense(16) -> Dense(1)
+  Lookback : 6 mois
+
+10. PROCHAINES ETAPES
+----------------------------------------------------------------------
+  PHASE 1 : Collecter GeoTIFF Sentinel-2 / SRTM (Google Earth Engine)
+  PHASE 2 : Compiler historique inondations 2015-2024 (Mairie Pikine/ONAS)
+  PHASE 3 : Reentraine modeles sur donnees reelles
+  PHASE 4 : Deploiement API FastAPI + dashboard Streamlit + alertes SMS
+
+======================================================================
+Rapport genere : 2026-06-18 15:19:55
+Status POC : COMPLET
+======================================================================
